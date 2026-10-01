@@ -6,7 +6,7 @@ import smartypants from "smartypants";
 
 const siteName = "Photos | trueberryless";
 
-export interface Props {
+interface Props {
   title: string;
   description: string;
   image?: {
@@ -16,6 +16,11 @@ export interface Props {
 }
 
 const { title, description, image } = Astro.props;
+
+const ogImage = image ?? {
+  src: new URL("/og-image.png", Astro.site).href,
+  alt: "Photos: Some photos I want to share online.",
+};
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pageTitle = Astro.url.pathname === "/" ? title : `${title} · ${siteName}`;
@@ -27,6 +32,7 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · ${siteName}`
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
+    <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title set:html={smartypants(pageTitle, 1)} />
     <meta name="description" content={smartypants(description, 1)} />
@@ -36,14 +42,11 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · ${siteName}`
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={siteName} />
-    {
-      image && (
-        <>
-          <meta property="og:image" content={image.src} />
-          <meta property="og:image:alt" content={image.alt} />
-        </>
-      )
-    }
+    <meta property="og:image" content={ogImage.src} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImage.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <slot />

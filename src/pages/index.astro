@@ -1,46 +1,43 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import {
+  getImageAlt,
+  getImageAspectStyle,
+  getImageLoading,
+} from "~/libs/gallery";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  "../images/*.{jpg,jpeg,png,webp}",
+  "../images/*.{jpg,jpeg,png,webp}"
 );
 ---
 
 <BaseLayout
   title="Photos | trueberryless"
-  description="A minimal, single-page photo gallery for Astro."
+  description="Some photos I want to share online."
 >
-  <section class="justified-gallery" id="photoswipe">
-    {
-      Object.entries(images).map(async ([path, image], index) => {
-        const { default: imageData } = await image();
+  <section class="justified-gallery">
+    {Object.entries(images).map(async ([path, image], index) => {
+      const { default: imageData } = await image();
 
-        const filename = path
-          .split("/")
-          .pop()
-          ?.replace(/\.(jpg|jpeg|png|webp)$/i, "")
-          .replace(/[-_]/g, " ");
-
-        return (
-          <a
-            style={`--width: ${imageData.width}; --height: ${imageData.height};`}
-            href={imageData.src}
-            target="_blank"
-            data-fancybox="gallery"
-          >
-            <Image
-              format="webp"
-              src={imageData}
-              alt={filename ?? "Image"}
-              height={400}
-              loading={index < 20 ? "eager" : "lazy"}
-            />
-          </a>
-        );
-      })
-    }
+      return (
+        <a
+          style={getImageAspectStyle(imageData)}
+          href={imageData.src}
+          target="_blank"
+          data-fancybox="gallery"
+        >
+          <Image
+            format="webp"
+            src={imageData}
+            alt={getImageAlt(path)}
+            height={400}
+            loading={getImageLoading(index)}
+          />
+        </a>
+      );
+    })}
   </section>
 </BaseLayout>
 
