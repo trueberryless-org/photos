@@ -1,16 +1,27 @@
 {
   "name": "photos",
+  "private": true,
+  "homepage": "https://photos.felixs.dev/",
+  "bugs": {
+    "url": "https://github.com/trueberryless-org/photos/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless-org/photos.git"
+  },
+  "license": "MIT",
+  "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
     "astro": "astro",
+    "build": "astro build",
     "check": "astro check",
+    "dev": "astro dev",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "knip": "knip",
     "lint": "oxlint",
+    "preview": "astro preview",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "pnpm build && playwright test"
@@ -24,30 +35,19 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "sharp": "^0.35.5",
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
+    "@trivago/prettier-plugin-sort-imports": "6.0.2",
+    "@types/node": "^26.6.3",
     "@vitest/coverage-v8": "^5.0.3",
     "knip": "^6.39.0",
     "oxlint": "^1.86.0",
-    "vitest": "^5.0.3",
-    "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "prettier": "3.9.9",
     "prettier-plugin-astro": "1.1.0",
-    "@types/node": "^26.6.3"
+    "sharp": "^0.35.5",
+    "vitest": "^5.0.3"
   },
-  "homepage": "https://photos.felixs.dev/",
-  "bugs": {
-    "url": "https://github.com/trueberryless-org/photos/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/trueberryless-org/photos.git"
-  },
-  "license": "MIT",
-  "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
   "packageManager": "pnpm@11.28.0",
-  "private": true,
   "engines": {
     "node": ">=24"
   }
